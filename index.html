@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FunFire — Fire Tester</title>
+  <meta name="description" content="Real-time fire detection using your webcam. Click Fire Tester to start monitoring for fire via color analysis and get an instant audio alarm." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated particle background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <main id="app">
+
+    <!-- ── Welcome / Idle card ─────────────────────────── -->
+    <div id="welcome-card">
+      <div class="flame-icon">🔥</div>
+      <h1>Fire Tester</h1>
+      <p>Point your camera at a flame or fire source. The system will detect it in real-time and trigger an alarm.</p>
+      <button id="btn-fire-tester">
+        <span>🎥 Start Fire Tester</span>
+      </button>
+    </div>
+
+    <!-- ── Camera / Detection panel ──────────────────────── -->
+    <div id="camera-panel">
+
+      <!-- Video viewport -->
+      <div class="camera-viewport">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="analysis-canvas"></canvas>
+
+        <!-- HUD overlay -->
+        <div class="hud-overlay">
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
+
+          <!-- Status badge -->
+          <div id="status-badge">
+            <div class="dot"></div>
+            <span id="status-text">MONITORING</span>
+          </div>
+
+          <!-- Confidence bar -->
+          <div id="confidence-bar-wrap">
+            <div class="conf-label">
+              <span>Fire Risk</span>
+              <span id="conf-pct">0%</span>
+            </div>
+            <div class="conf-track">
+              <div id="confidence-fill"></div>
+            </div>
+          </div>
+
+          <!-- Fire alert flash -->
+          <div id="fire-alert-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-label">Status</div>
+          <div class="stat-value" id="stat-status">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Confidence</div>
+          <div class="stat-value" id="stat-confidence">0%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Frames Analyzed</div>
+          <div class="stat-value" id="stat-frames">0</div>
+        </div>
+      </div>
+
+      <!-- Sensitivity slider -->
+      <div class="sensitivity-row">
+        <span class="sens-label">🔍 Detection Sensitivity</span>
+        <div class="sens-slider-wrap">
+          <span class="sens-hint">Low</span>
+          <input type="range" id="sensitivity-slider" min="1" max="5" value="3" step="1" />
+          <span class="sens-hint">High</span>
+        </div>
+        <span class="sens-value" id="sens-value-display">3 / 5</span>
+      </div>
+
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="btn btn-outline" id="btn-mute">🔊 Mute</button>
+        <button class="btn btn-danger"  id="btn-stop">⏹ Stop Camera</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Fire alert toast -->
+  <div id="toast"><span></span></div>
+
+  <!-- Scripts -->
+  <script src="fire-alarm.js"></script>
+  <script src="fire-detector.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
